@@ -1,0 +1,751 @@
+DISPATCH
+PRODUCT STRATEGY & DEFINITION
+October 2026
+
+2.1 PRODUCT BRIEF
+
+Product Overview
+
+Dispatch is a pickup-reliability solution for manufacturers that depend on external transporters to move finished goods from their factories to customers, distributors or other business locations.
+
+We are building Dispatch to address the operational uncertainty between arranging a vehicle and ensuring that the vehicle actually arrives for collection.
+
+Rather than becoming another freight marketplace, we will focus on pickup commitments, risk detection, coordination and exception recovery.
+
+Problem Statement
+
+Small and medium-sized manufacturers may experience missed or delayed factory pickups when transporters fail to arrive as scheduled, cancel at short notice or communicate changes too late.
+
+When this happens, dispatch teams must manually contact transporters, negotiate alternatives and manage the resulting delays.
+
+Existing transport arrangements may provide access to vehicles without giving the manufacturer a consistent process for monitoring pickup commitments and recovering when they fail.
+
+Our core problem: Manufacturers lack a dependable, accountable process for managing scheduled pickups and responding when transportation arrangements break down.
+
+The frequency and financial impact of this problem remain unvalidated.
+
+Target Users
+
+Primary user: Factory dispatch manager
+Coordinates daily outbound shipments, confirms vehicle arrivals, follows up with transporters and resolves pickup delays.
+
+Economic buyer: Factory owner or operations head
+Bears the operational and commercial consequences of delayed dispatches and evaluates whether a reliability service is worth paying for.
+
+Service partner: Transporter or fleet operator
+Accepts pickup commitments, communicates availability and may provide replacement capacity when the original arrangement fails.
+
+Core Use Case
+
+A manufacturer schedules a pickup for a specific date and time.
+
+Dispatch records the commitment, confirms the arrangement, monitors its status and identifies potential delays.
+
+If the transporter cannot fulfil the commitment, Dispatch coordinates an alternative where available and keeps the manufacturer informed.
+
+The pickup is then recorded as completed, delayed, cancelled or unresolved.
+
+Value Delivered
+
+We aim to help manufacturers:
+- Reduce missed and delayed pickups.
+- Spend less time coordinating transporters manually.
+- Identify pickup problems earlier.
+- Recover faster when transportation arrangements fail.
+- Build a reliable record of transporter performance.
+
+Product Objective
+
+Make scheduled factory pickups more predictable and operationally manageable.
+
+
+2.2 PRODUCT VISION & STRATEGY
+
+Product Vision
+
+We want Dispatch to become a trusted reliability layer between manufacturers and the transport capacity they depend on.
+
+Our long-term direction is to help businesses manage transportation commitments, identify operational risks and recover from failures through a consistent, measurable workflow.
+
+Strategic Principles
+
+1. Reliability Before Marketplace Scale
+
+We will solve the pickup execution problem before attempting to aggregate large numbers of transporters or shipments.
+
+A marketplace that generates bookings but cannot improve pickup outcomes would not deliver our intended value.
+
+2. Coordinate Existing Capacity
+
+We will initially work with existing transporters and fleet operators rather than investing in an owned fleet.
+
+This keeps the initial operating model focused on coordination, service quality and recovery.
+
+3. Manage Exceptions, Not Just Bookings
+
+We will distinguish Dispatch from a basic booking interface by focusing on what happens after a pickup is scheduled.
+
+Confirmation, monitoring, communication and recovery are central to the product.
+
+4. Start With One Concentrated Market
+
+We will begin with a narrowly defined industrial cluster and manufacturers with recurring outbound shipments.
+
+Concentration should make it easier to build transporter relationships, understand local operating patterns and access replacement capacity.
+
+The specific cluster will be selected during implementation planning using customer density, shipment frequency, transport availability and operational feasibility.
+
+5. Prove Value Before Automating Everything
+
+We will initially support the workflow with lightweight software and managed coordination.
+
+We will automate activities when recurring operational evidence demonstrates that automation improves reliability or reduces service costs.
+
+Differentiation
+
+Dispatch will compete on the reliability of the pickup process rather than the number of transporters listed on a platform.
+
+Our intended differentiation is:
+- Recorded pickup commitments.
+- Proactive identification of at-risk pickups.
+- Structured exception handling.
+- Coordinated recovery when alternatives are available.
+- Measurable pickup and transporter performance.
+
+These capabilities represent our intended positioning, not an established competitive advantage. We must demonstrate that they improve real pickup outcomes.
+
+Strategic Boundaries
+
+At the initial stage, we will not:
+- Build a general-purpose freight marketplace.
+- Purchase or operate our own vehicle fleet.
+- Expand across multiple industrial clusters simultaneously.
+- Promise guaranteed pickups without the operational capacity to support that promise.
+- Build complex predictive systems before we have sufficient reliable operational data.
+
+
+2.3 VALUE PROPOSITION
+
+Core Value Proposition
+
+Dispatch helps manufacturers make scheduled pickups more reliable by confirming commitments, monitoring execution and coordinating recovery when transportation arrangements fail.
+
+Value by User
+
+For Factory Owners
+
+Value: Greater control over outbound logistics.
+
+Dispatch aims to reduce the disruption caused by failed pickups and improve visibility into recurring transportation problems.
+
+For Dispatch Managers
+
+Value: Less manual coordination and a clearer process for resolving exceptions.
+
+Instead of repeatedly chasing updates across calls and messages, dispatch managers can work through a single pickup workflow.
+
+For Transporters
+
+Value: Clearer pickup requirements and more structured communication.
+
+Transporters can receive defined commitments, communicate delays and maintain a record of their service performance.
+
+Why Choose Dispatch?
+
+A manufacturer may already have trusted transporters, brokers or existing logistics platforms.
+
+We should not require customers to replace those relationships simply to use Dispatch.
+
+Our initial proposition is to improve the reliability of the arrangements they already use.
+
+A customer should choose Dispatch if the operational value of fewer failures, faster recovery and reduced coordination effort exceeds the service fee.
+
+Value Proposition Hypothesis
+
+We expect customers to be most interested when:
+- Pickup failures occur frequently enough to create material disruption.
+- Dispatch teams spend significant time following up with transporters.
+- Missed pickups have measurable commercial or operational consequences.
+- Suitable alternative transport capacity can be arranged.
+- Customers are willing to pay for better execution rather than just access to vehicles.
+
+We will treat willingness to pay as an open question until supported by actual customer and transaction evidence.
+
+
+2.4 PRODUCT REQUIREMENTS DOCUMENT (PRD)
+
+2.4.1 Product Objective
+
+Build the minimum operational system required to create, confirm, monitor and resolve scheduled factory pickups.
+
+The first version must support the complete pickup lifecycle, including failed or delayed pickups.
+
+2.4.2 Primary User Journey
+
+1. A manufacturer creates a pickup request.
+2. The pickup details and expected collection time are recorded.
+3. A transporter is assigned or associated with the request.
+4. The pickup commitment is confirmed.
+5. Dispatch tracks the commitment against its scheduled time.
+6. A pickup is marked completed, delayed, cancelled or at risk.
+7. If a problem occurs, the responsible operator coordinates recovery.
+8. The final outcome and relevant timestamps are recorded.
+
+The first version may use manual status updates and human-led coordination. Automated tracking will depend on available integrations and operational feasibility.
+
+2.4.3 Functional Requirements
+
+FR-01: Pickup Creation
+
+The system must allow an authorised user to create a pickup request.
+
+Required information:
+- Pickup reference.
+- Manufacturer or customer.
+- Factory pickup location.
+- Destination.
+- Scheduled pickup date and time.
+- Shipment description and relevant handling information.
+- Assigned transporter, when available.
+- Contact details required for coordination.
+
+Acceptance criteria:
+- A valid request can be created and assigned a unique reference.
+- Required fields are validated before submission.
+- Incomplete requests cannot enter the confirmed state.
+
+FR-02: Commitment Confirmation
+
+The system must distinguish between a requested pickup and a confirmed pickup.
+
+Acceptance criteria:
+- A pickup cannot be labelled confirmed without an explicit confirmation from the transporter or an authorised operator recording that confirmation.
+- The system records the confirmation time and the person or source confirming it.
+- Unconfirmed requests remain visibly distinguishable from confirmed commitments.
+
+FR-03: Pickup Status Management
+
+The system must maintain a defined status for each pickup.
+
+Initial statuses:
+- Requested.
+- Awaiting confirmation.
+- Confirmed.
+- At risk.
+- Recovery in progress.
+- Completed.
+- Delayed.
+- Cancelled.
+- Unresolved.
+
+Acceptance criteria:
+- Every pickup has one current status.
+- Only permitted status transitions are allowed.
+- Status changes record the time and source of the change.
+- Completed pickups cannot silently return to an active state.
+- Corrections must preserve an auditable history.
+
+FR-04: Pickup Monitoring
+
+The system must identify pickups that require attention as their scheduled collection time approaches.
+
+Acceptance criteria:
+- Confirmed pickups approaching their scheduled time can be identified.
+- Overdue pickups without a recorded arrival or completion are flagged.
+- An operator can review the reason for a flag and update the pickup status.
+- The initial version may rely on scheduled checks and manual updates rather than live GPS tracking.
+
+FR-05: Exception Management
+
+The system must allow an operator to record and manage pickup failures.
+
+Supported exception types:
+- Transporter no-show.
+- Late arrival.
+- Last-minute cancellation.
+- Vehicle unavailable.
+- Pickup details incorrect.
+- Customer or factory not ready.
+- Other operational issue.
+
+Acceptance criteria:
+- An exception can be associated with a pickup.
+- The system records the issue, time, responsible party where known and current resolution status.
+- An operator can record corrective actions and communication.
+- The exception remains available for later review.
+
+FR-06: Recovery Coordination
+
+The system must support attempts to arrange alternative transportation when the original commitment fails.
+
+Acceptance criteria:
+- An operator can record a recovery attempt.
+- Alternative transporters and their responses can be recorded.
+- A replacement is not treated as confirmed until acceptance is explicitly recorded.
+- The original failure and subsequent recovery outcome remain linked.
+- If no alternative is available, the pickup is marked unresolved rather than incorrectly marked recovered.
+
+FR-07: Notifications and Communication
+
+The system must support communication when a pickup is confirmed, delayed, at risk or resolved.
+
+Acceptance criteria:
+- The system can identify the relevant parties for each event.
+- Messages or notifications are generated only for configured events and available channels.
+- Failed notification attempts are recorded where technically supported.
+- Critical status changes remain visible in the system even if a notification fails.
+- The first version may use manually initiated calls or messages, with automation introduced where appropriate.
+
+FR-08: Pickup History
+
+The system must maintain a history of pickup events.
+
+Acceptance criteria:
+- Users can review the pickup's status history.
+- The history includes relevant timestamps, exceptions, recovery attempts and final outcomes.
+- Changes can be attributed to a user or system event where available.
+- Historical records are not silently overwritten.
+
+FR-09: Operational Dashboard
+
+The system must provide a consolidated view of pickups requiring attention.
+
+The initial dashboard should prioritise:
+- Pickups awaiting confirmation.
+- Confirmed pickups approaching their scheduled time.
+- At-risk or overdue pickups.
+- Active recovery attempts.
+- Completed and unresolved pickups.
+
+Acceptance criteria:
+- Users can identify which pickups require action.
+- The displayed status reflects the latest recorded event.
+- Users can open a pickup and access its operational history.
+
+FR-10: Performance Reporting
+
+The system must calculate basic pickup reliability metrics from recorded events.
+
+Initial reporting includes:
+- Total scheduled pickups.
+- Confirmed pickups.
+- Completed pickups.
+- On-time pickup rate.
+- Missed pickup rate.
+- Recovery rate.
+- Average delay.
+- Exception frequency by transporter.
+
+Acceptance criteria:
+- Each metric has a documented definition.
+- Metrics use consistent date ranges and denominators.
+- Missing timestamps are not silently treated as successful outcomes.
+- Reports distinguish measured results from incomplete data.
+
+2.4.4 Non-Functional Requirements
+
+Reliability
+
+Pickup records and status changes must be persisted consistently. The system must avoid duplicate records caused by repeated submissions where technically feasible.
+
+Security
+
+Users must access only the information permitted by their roles and organisational relationships. Sensitive contact and shipment information must not be exposed publicly.
+
+Auditability
+
+Important status changes and recovery actions must have a traceable history.
+
+Usability
+
+A dispatch manager should be able to create, locate and update a pickup without navigating unnecessary screens. The interface should prioritise operational clarity over decorative features.
+
+Performance
+
+The dashboard and pickup details should load quickly under the expected initial workload. Specific performance thresholds will be defined alongside the chosen technical architecture and deployment environment.
+
+Extensibility
+
+The data model should support future integrations for messaging, location tracking, transporter systems and analytics without requiring a fundamental redesign.
+
+2.4.5 Dependencies and Constraints
+
+The product depends on:
+- Accurate pickup details from manufacturers.
+- Transporters who confirm or update their commitments.
+- Access to suitable alternative transport capacity.
+- Timely recording of pickup arrivals and completion.
+- Clear operational ownership when an exception occurs.
+- Reliable communication between the parties involved.
+
+The initial product will not be able to guarantee physical arrival based on software alone. Reliability depends on both the system and the underlying transportation operation.
+
+2.4.6 Product Acceptance Standard
+
+The initial product is functionally acceptable when an authorised operator can manage a pickup from creation through confirmation, monitoring, exception handling and final resolution, with a traceable record of each significant event.
+
+This establishes workflow completeness. It does not, by itself, prove commercial viability or improved pickup reliability.
+
+
+2.5 MVP SCOPE & FEATURE PRIORITISATION
+
+MVP Objective
+
+Prove that a structured pickup-reliability workflow can improve operational execution for a narrowly defined group of manufacturers.
+
+We will prioritise capabilities that directly support this objective.
+
+P0: Required for the MVP
+
+- Pickup management: Create and manage scheduled pickup requests.
+- Commitment confirmation: Record whether a transporter has accepted a pickup.
+- Status tracking: Maintain the current status and history of each pickup.
+- Exception management: Identify and record delays, cancellations and no-shows.
+- Recovery coordination: Record alternative transport attempts and their outcomes.
+- Operational dashboard: Show pickups requiring confirmation, intervention or resolution.
+- Basic reporting: Measure pickup completion, punctuality, failures and recovery.
+- User access control: Restrict operational data to authorised users.
+
+P1: After the Core Workflow Works
+
+- Automated reminders and confirmation messages.
+- Configurable escalation rules.
+- Transporter performance summaries.
+- Customer-facing pickup status updates.
+- Reusable transporter and factory profiles.
+- Basic integrations with commonly used communication channels.
+
+These features should be prioritised when the initial workflow demonstrates recurring operational value.
+
+P2: Future Capabilities
+
+- Automated transporter recommendations.
+- Predictive pickup-risk scoring.
+- Live GPS tracking integrations.
+- Automated backup transporter matching.
+- Advanced logistics analytics.
+- Multi-location enterprise management.
+- Deeper integration with transport management and enterprise systems.
+
+Explicitly Out of Scope
+
+For the initial MVP, we will not build:
+- An open freight marketplace.
+- An owned vehicle fleet.
+- A complete transport management system.
+- A full warehouse management system.
+- Automated dynamic pricing.
+- AI prediction systems without sufficient historical data.
+- Nationwide operations from launch.
+
+Prioritisation Rule
+
+We will prioritise features based on their contribution to four outcomes:
+
+1. Can we establish a real pickup commitment?
+2. Can we identify when that commitment is at risk?
+3. Can we coordinate a response when it fails?
+4. Can we measure whether the response improves the outcome?
+
+Features that do not materially support these outcomes will remain outside the initial MVP unless new evidence changes the product direction.
+
+
+2.6 USER STORIES & ACCEPTANCE CRITERIA
+
+Epic 1: Create a Pickup
+
+User story:
+As a dispatch manager, I want to create a pickup request so that the shipment and its expected collection time are recorded in one place.
+
+Acceptance criteria:
+- A request requires a pickup location, destination and scheduled time.
+- The system assigns a unique pickup reference.
+- Invalid or incomplete requests cannot be submitted.
+- The request appears in the operational dashboard.
+
+Epic 2: Confirm a Commitment
+
+User story:
+As a dispatch manager, I want to know whether the transporter has accepted the pickup so that I can distinguish a real commitment from an unconfirmed arrangement.
+
+Acceptance criteria:
+- New requests are not automatically marked confirmed.
+- Confirmation records its time and source.
+- Unconfirmed pickups remain visible.
+- A changed commitment can be recorded without losing the previous history.
+
+Epic 3: Identify At-Risk Pickups
+
+User story:
+As a dispatch manager, I want to identify pickups that are approaching their scheduled time without sufficient confirmation or progress so that I can intervene before the delay worsens.
+
+Acceptance criteria:
+- Pickups can be filtered by scheduled time and status.
+- Overdue pickups without a recorded arrival or completion are flagged.
+- An operator can review and update the pickup.
+- A flag does not automatically imply that the transporter has failed.
+
+Epic 4: Resolve a Failed Pickup
+
+User story:
+As a dispatch manager, I want to record a pickup failure and coordinate an alternative so that I can minimise disruption to the shipment.
+
+Acceptance criteria:
+- The failure reason can be recorded.
+- Recovery attempts can be associated with the original pickup.
+- Alternative transporter acceptance is recorded explicitly.
+- The system distinguishes successful recovery from an unsuccessful attempt.
+- The final outcome remains linked to the original failure.
+
+Epic 5: Communicate a Status Change
+
+User story:
+As a manufacturer, I want to receive relevant pickup updates so that I know whether the shipment is progressing as expected.
+
+Acceptance criteria:
+- Relevant parties are identifiable.
+- Supported status events can trigger notifications.
+- Notification failures do not erase the underlying status change.
+- The system does not claim that a message was delivered when delivery has not been confirmed.
+
+Epic 6: Review Pickup Performance
+
+User story:
+As a factory owner, I want to review pickup reliability so that I can understand how frequently failures occur and whether the service is improving performance.
+
+Acceptance criteria:
+- Reports support a defined reporting period.
+- On-time, delayed, failed and recovered pickups are distinguishable.
+- Metrics use documented calculation rules.
+- Incomplete data is identified rather than silently counted as success.
+
+Epic 7: Review Transporter Performance
+
+User story:
+As a dispatch manager, I want to review transporter pickup history so that I can make better-informed allocation decisions.
+
+Acceptance criteria:
+- Pickup outcomes can be grouped by transporter.
+- Reports distinguish confirmed commitments from completed pickups.
+- Cancellations, delays and no-shows are recorded separately.
+- The system does not infer fault when the recorded evidence is insufficient.
+
+
+2.7 PRODUCT ROADMAP
+
+The roadmap is organised around evidence and operational capability rather than arbitrary feature volume.
+
+Phase A: Strategy and Product Definition
+Status: Complete
+
+We have defined:
+- The pickup-reliability problem.
+- The initial customer segment.
+- The product vision and differentiation.
+- The MVP boundaries.
+- The core operational workflow.
+- Functional requirements and acceptance criteria.
+- Initial success metrics.
+
+Exit condition: The product has a documented scope and a consistent definition of what success means.
+
+Phase B: Workflow and Technical Design
+
+Objective: Translate the requirements into an implementable system.
+
+We will define:
+- The end-to-end pickup workflow.
+- Screen structure and navigation.
+- User roles and permissions.
+- Pickup and exception data models.
+- Status transitions and event history.
+- Notification and escalation behaviour.
+- Technical architecture and deployment approach.
+
+Exit condition: The critical workflow and technical design are sufficiently specified to build and test the MVP.
+
+Phase C: MVP Development
+
+Objective: Implement the smallest complete pickup-management system.
+
+We will build:
+- Pickup creation and management.
+- Commitment confirmation.
+- Status tracking and history.
+- Exception recording.
+- Recovery coordination.
+- Operational dashboard.
+- Basic reliability reporting.
+- Access control.
+
+Exit condition: A pickup can be managed end to end, including an unsuccessful pickup and its recovery attempts.
+
+Phase D: Operational Validation
+
+Objective: Determine whether Dispatch works under real operating conditions.
+
+We will evaluate:
+- Whether users record commitments consistently.
+- Whether at-risk pickups can be identified in time.
+- Whether alternative transport can be arranged when needed.
+- Whether pickup outcomes improve compared with the existing workflow.
+- Whether the coordination effort is economically sustainable.
+
+Exit condition: Operational evidence is sufficient to decide whether to continue, modify or stop the current approach.
+
+Phase E: Product Improvement
+
+Objective: Remove recurring operational bottlenecks.
+
+Potential improvements include automated notifications, escalation rules, transporter performance reporting and communication integrations.
+
+We will prioritise improvements based on observed failures and operational costs.
+
+Exit condition: The product demonstrates repeatable value beyond a single operator or isolated customer.
+
+Phase F: Controlled Expansion
+
+Objective: Expand only after the operating model is repeatable.
+
+We will evaluate additional manufacturers, transporter networks and industrial clusters when the initial market demonstrates sufficient demand, recovery capacity and sustainable economics.
+
+Exit condition: Expansion can be supported without materially degrading pickup reliability or service economics.
+
+
+2.8 SUCCESS METRICS
+
+We will measure success at three levels: pickup reliability, operational efficiency and commercial viability.
+
+Because no verified pilot baseline exists, the initial baseline is unknown. Targets below are provisional validation thresholds, not established forecasts or customer commitments.
+
+1. Pickup Reliability
+
+On-Time Pickup Rate
+
+Definition: Percentage of eligible completed pickups collected by the agreed pickup deadline.
+
+Formula:
+On-time completed pickups / Eligible completed pickups x 100
+
+We must define the pickup deadline and treatment of customer-caused delays before comparing results.
+
+Initial target: Establish a reliable baseline before setting a performance improvement target.
+
+Missed Pickup Rate
+
+Definition: Percentage of confirmed pickups that fail to occur within the agreed operational window and are classified as missed.
+
+Formula:
+Missed confirmed pickups / Total eligible confirmed pickups x 100
+
+We will distinguish a missed pickup from a delay and document the reasons for failure.
+
+Initial target: Establish the baseline and determine whether Dispatch reduces the rate.
+
+Recovery Rate
+
+Definition: Percentage of eligible failed pickups for which an alternative arrangement results in a successful pickup within the defined recovery window.
+
+Formula:
+Successfully recovered failed pickups / Eligible failed pickups x 100
+
+Initial target: Measure actual recovery performance before setting a numerical improvement target.
+
+Average Pickup Delay
+
+Definition: Average time between the agreed pickup deadline and actual pickup time for delayed pickups.
+
+Initial target: Establish the baseline and measure whether the product reduces delays.
+
+2. Operational Efficiency
+
+Coordination Time per Pickup
+
+Definition: Total staff time spent confirming, monitoring and resolving a pickup divided by the number of pickups handled.
+
+We will compare the existing process with the Dispatch-supported process.
+
+Initial target: Demonstrate a reduction without compromising pickup outcomes.
+
+Time to Detect a Pickup Problem
+
+Definition: Time between the point at which a pickup becomes detectably at risk and the time the issue is identified.
+
+Initial target: Establish a baseline and reduce avoidable detection delays.
+
+Time to Recovery
+
+Definition: Time between recording a pickup failure and confirming a viable replacement arrangement, where one is available.
+
+Initial target: Establish the baseline and evaluate whether structured coordination improves recovery speed.
+
+Exception Resolution Rate
+
+Definition: Percentage of recorded pickup exceptions that reach a documented resolution within the defined operational window.
+
+Unresolved cases must remain visible and must not be counted as resolved merely because an operator closes a record.
+
+3. Commercial Viability
+
+Customer Willingness to Pay
+
+Definition: Evidence that target manufacturers will pay for the reliability service.
+
+We will distinguish verbal interest from an actual paid transaction.
+
+Success evidence: Customers pay for the service and continue using it when the operational value is demonstrated.
+
+Paid Pickup Volume
+
+Definition: Number of pickups for which Dispatch earns a service fee during a defined period.
+
+Success evidence: Repeatable paid usage rather than isolated transactions.
+
+Contribution per Pickup
+
+Definition: Revenue earned per pickup minus the variable costs attributable to delivering the service.
+
+Variable costs should include relevant coordination labour, recovery costs, payment charges and other transaction-specific expenses.
+
+Success evidence: Positive contribution per pickup under a clearly defined and repeatable operating model.
+
+Customer Retention
+
+Definition: Percentage of paying customers who continue using Dispatch over a defined period.
+
+Success evidence: Repeat usage that indicates ongoing operational value rather than one-time experimentation.
+
+4. Measurement Rules
+
+We will follow five rules when evaluating these metrics:
+- Every metric must have a documented definition and calculation method.
+- Baselines must come from recorded operating data, not assumptions.
+- Missing data must be identified rather than treated as a successful outcome.
+- Performance must be evaluated alongside service cost and operational effort.
+- We will not claim improved reliability until comparable evidence supports the claim.
+
+Product Success Definition
+
+Dispatch will be considered ready for controlled expansion when we have evidence that:
+
+1. Manufacturers experience a meaningful pickup-reliability problem.
+2. The product helps identify or resolve pickup failures.
+3. Pickup outcomes improve against a credible baseline.
+4. Customers demonstrate willingness to pay.
+5. The service can be delivered with sustainable contribution economics.
+6. The operating model can be repeated without excessive manual effort.
+
+A functioning application alone is not product success. We must demonstrate that Dispatch improves the underlying logistics operation.
+
+
+PHASE 2: FINAL PRODUCT DECISION
+
+Recommendation: Proceed with a narrowly scoped pickup-reliability MVP.
+
+We will build around the complete pickup lifecycle: creation, confirmation, monitoring, exception handling, recovery and measurement.
+
+We will avoid premature marketplace development, fleet ownership and complex automation.
+
+The first version must make pickup commitments visible, failures actionable and outcomes measurable.
+
+The next development phase is UI/UX Design, where we will translate the defined requirements into the actual screens, interactions and operational workflows required to build Dispatch.
