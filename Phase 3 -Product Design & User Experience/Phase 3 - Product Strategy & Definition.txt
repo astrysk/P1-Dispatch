@@ -1,0 +1,2014 @@
+DISPATCH
+PRODUCT DESIGN & USER EXPERIENCE
+October 2026
+
+Phase Objective
+
+Translate Dispatch's product strategy and requirements into a complete, testable user experience that can guide development.
+
+Dispatch is designed to help small and medium-sized manufacturers manage scheduled pickups, confirm transporter commitments, identify potential failures, coordinate recovery, and measure outcomes.
+
+The interface must help an operator answer five questions quickly:
+
+1. What pickups are scheduled?
+2. Which pickups are confirmed?
+3. Which pickups require attention?
+4. What action should be taken when a pickup fails?
+5. What was the final outcome?
+
+The product should prioritize operational clarity, fast task completion, reliable records, and minimal coordination overhead.
+
+Design Principles
+
+1. Action Before Analytics: Prioritize pickups that require attention over decorative charts and aggregate statistics.
+2. Commitment Before Assignment: Clearly distinguish a transporter being assigned from a transporter confirming the pickup.
+3. Exceptions Must Be Visible: Failed confirmations, overdue pickups, cancellations, and unresolved recovery attempts must not disappear inside ordinary status lists.
+4. Every Important Action Must Be Traceable: Record relevant status changes, confirmation events, and recovery attempts.
+5. Minimize Operator Effort: Reduce unnecessary navigation, repeated data entry, and ambiguous decisions.
+6. Do Not Invent Certainty: Distinguish confirmed information from estimates, unverified reports, and missing information.
+7. Design for Real Operations: Assume operators may manage several pickups simultaneously and work under time pressure.
+8. Validate Before Expanding: Design only the workflows needed to test the core pickup-reliability proposition.
+
+3.1 INFORMATION ARCHITECTURE
+
+3.1.1 Primary Product Structure
+
+Dispatch will use an operations-first information architecture.
+
+The primary interface should revolve around the pickup lifecycle rather than a large collection of disconnected modules.
+
+Main Navigation
+
+1. Overview
+2. Pickups
+3. Recovery
+4. Transporters
+5. Reports
+6. Settings
+
+1. Overview
+
+Purpose: Provide an immediate view of the current operational situation.
+
+Contains:
+
+- Today's scheduled pickups.
+- Pickups awaiting confirmation.
+- Upcoming pickups.
+- At-risk pickups.
+- Overdue pickups.
+- Active recovery cases.
+- Recently completed pickups.
+- Unresolved exceptions.
+
+Primary action: Create Pickup.
+
+The Overview page should help the operator identify the next action without requiring them to inspect every record individually.
+
+2. Pickups
+
+Purpose: Create, organize, monitor, and manage pickup records.
+
+Contains:
+
+- All pickups.
+- Today's pickups.
+- Upcoming pickups.
+- Awaiting confirmation.
+- Confirmed pickups.
+- At-risk pickups.
+- Delayed pickups.
+- Completed pickups.
+- Cancelled pickups.
+- Unresolved pickups.
+
+Each pickup should have a dedicated detail page containing its shipment information, transporter assignment, confirmation status, event history, exceptions, and recovery information.
+
+Primary action: Create Pickup.
+
+3. Recovery
+
+Purpose: Manage pickups that cannot proceed as originally planned.
+
+Contains:
+
+- Recovery required.
+- Recovery in progress.
+- Alternative transporter attempts.
+- Alternative commitments.
+- Successfully recovered pickups.
+- Unresolved recovery cases.
+
+Each recovery case must be linked to its original pickup.
+
+The interface should make the next required action visible, such as contacting an alternative transporter or confirming a revised pickup time.
+
+Primary action: Start Recovery.
+
+4. Transporters
+
+Purpose: Maintain basic transporter information and review operational history.
+
+Contains:
+
+- Transporter directory.
+- Contact information.
+- Service areas.
+- Available operational details.
+- Associated pickup history.
+- Recorded delays and exceptions.
+- Historical completion and reliability metrics.
+
+Transporter performance must be based on recorded evidence rather than unsupported ratings.
+
+Primary action: Add Transporter.
+
+5. Reports
+
+Purpose: Understand pickup performance and operational efficiency.
+
+Contains:
+
+- Pickup volume.
+- Confirmation rate.
+- On-time pickup rate.
+- Missed pickup rate.
+- Recovery rate.
+- Average pickup delay.
+- Exception breakdown.
+- Transporter performance summaries.
+
+Reports should support a defined date range and clearly display the number of records included in each calculation.
+
+Primary action: Review Performance.
+
+6. Settings
+
+Purpose: Configure the operational environment.
+
+Contains:
+
+- Organization details.
+- User accounts.
+- Roles and permissions.
+- Pickup status definitions.
+- Pickup timing rules.
+- Notification preferences.
+- Basic operational settings.
+
+Advanced configuration should be excluded until a demonstrated need exists.
+
+3.1.2 Core Information Hierarchy
+
+The product should organize information in the following order:
+
+Level 1: Operational Priority
+
+What needs attention now?
+
+Level 2: Pickup Status
+
+What is happening with each scheduled pickup?
+
+Level 3: Pickup Details
+
+Who is responsible, where is the pickup happening, and when is it expected?
+
+Level 4: Actions
+
+What can the operator do next?
+
+Level 5: History and Evidence
+
+What happened previously, and what information supports the current status?
+
+This hierarchy should remain consistent across the dashboard, pickup list, pickup detail page, and recovery workflow.
+
+3.1.3 Pickup Record Structure
+
+Every pickup should contain the following information.
+
+A. Identification
+
+- Unique pickup reference.
+- Customer or business name.
+- Shipment description.
+- Created date and time.
+- Record owner.
+
+B. Pickup Details
+
+- Pickup location.
+- Destination.
+- Scheduled pickup date.
+- Scheduled pickup time.
+- Expected shipment readiness.
+- Special instructions.
+
+C. Transporter Details
+
+- Assigned transporter.
+- Primary contact.
+- Contact information.
+- Assignment timestamp.
+
+D. Commitment Details
+
+- Confirmation status.
+- Confirmation timestamp.
+- Confirmed pickup time.
+- Revised commitment, if applicable.
+- Reason for rescheduling.
+
+E. Execution Details
+
+- Current pickup status.
+- Actual arrival time, if recorded.
+- Actual pickup completion time, if recorded.
+- Reported delay.
+- Exception reason.
+
+F. Recovery Details
+
+- Recovery status.
+- Recovery initiation time.
+- Alternative transporters contacted.
+- Responses received.
+- Alternative commitment.
+- Final recovery outcome.
+
+G. Activity History
+
+- Event description.
+- Timestamp.
+- Actor or source.
+- Previous status, where relevant.
+- New status, where relevant.
+- Supporting notes.
+
+The system must distinguish between an event that occurred and an event that someone reported.
+
+For example, a transporter reporting that a vehicle has arrived is different from a pickup being verified as completed.
+
+3.1.4 Navigation Rules
+
+- Every pickup should be accessible from the main pickup list.
+- Clicking a pickup should open its detail view.
+- Recovery cases should link directly to the associated pickup.
+- Transporter profiles should link to their pickup history.
+- Reports should allow users to inspect the underlying records where practical.
+- Important actions should be available from both the pickup detail page and relevant operational lists.
+- Navigation should preserve relevant filters when users return to a list.
+- Destructive actions should require appropriate confirmation.
+- Permissions should determine which actions are available to each user.
+
+Information Architecture Decision
+
+I recommend keeping the MVP navigation limited to six primary sections.
+
+The product should not introduce separate modules for fleet management, route planning, invoicing, warehouse management, or freight procurement unless customer validation establishes a clear need.
+
+3.2 USER JOURNEY MAPS
+
+The initial design will focus on three primary journeys.
+
+1. Create and confirm a scheduled pickup.
+2. Identify and recover a failed pickup.
+3. Review pickup performance.
+
+These journeys cover the core operational value proposition.
+
+3.2.1 Journey A: Create and Confirm a Pickup
+
+Stage 1: Identify the Shipment
+
+User Goal:
+
+Schedule transportation for an outbound shipment.
+
+User Actions:
+
+- Open Dispatch.
+- Select Create Pickup.
+- Enter shipment information.
+- Enter pickup and destination details.
+- Select the scheduled time.
+
+Potential Pain Points:
+
+- Missing shipment information.
+- Incorrect addresses.
+- Unclear pickup timing.
+- Repeated manual data entry.
+
+Design Opportunities:
+
+- Use clearly labeled fields.
+- Validate required information.
+- Allow the operator to review the pickup before saving.
+- Provide useful defaults without silently inventing information.
+
+System Response:
+
+Create the pickup record and display its unique reference.
+
+Stage 2: Assign a Transporter
+
+User Goal:
+
+Identify the transporter responsible for the pickup.
+
+User Actions:
+
+- Select an existing transporter.
+- Review contact details.
+- Assign the transporter.
+- Initiate the confirmation process.
+
+Potential Pain Points:
+
+- Incorrect contact details.
+- Unclear responsibility.
+- Assuming that assignment means confirmation.
+
+Design Opportunities:
+
+- Display transporter identity and contact information.
+- Separate assignment from confirmation.
+- Make the confirmation status immediately visible.
+
+System Response:
+
+Set the pickup to Awaiting Confirmation.
+
+Stage 3: Obtain Confirmation
+
+User Goal:
+
+Establish whether the transporter has accepted the pickup commitment.
+
+User Actions:
+
+- Contact the transporter.
+- Record the response.
+- Enter the confirmed time if it differs from the original request.
+
+Potential Pain Points:
+
+- No response.
+- Conflicting pickup times.
+- Informal verbal commitments.
+- Unrecorded changes.
+
+Design Opportunities:
+
+- Provide explicit confirmation controls.
+- Record the confirmation timestamp and source.
+- Display unanswered requests prominently.
+
+System Response:
+
+Update the pickup to Confirmed only when the commitment has been explicitly acknowledged and recorded.
+
+Stage 4: Monitor the Pickup
+
+User Goal:
+
+Know whether the pickup remains on schedule.
+
+User Actions:
+
+- Review the operational dashboard.
+- Inspect the scheduled pickup.
+- Record relevant updates.
+
+Potential Pain Points:
+
+- Transporter becomes unavailable.
+- Pickup time passes without an update.
+- The operator must repeatedly contact the transporter.
+
+Design Opportunities:
+
+- Highlight upcoming and overdue pickups.
+- Surface missing confirmations.
+- Show the next required action.
+
+System Response:
+
+Display the current status and flag pickups requiring attention according to defined operational rules.
+
+Journey Completion
+
+The journey is complete when the pickup reaches a recorded final outcome.
+
+The operator should be able to determine whether the shipment was collected on time, collected late, recovered after a failure, cancelled, or left unresolved.
+
+3.2.2 Journey B: Recover a Failed Pickup
+
+Stage 1: Detect the Problem
+
+User Goal:
+
+Determine whether a scheduled pickup has failed or is at risk.
+
+Trigger Examples:
+
+- The transporter reports a cancellation.
+- The transporter becomes unreachable.
+- The scheduled time passes without arrival confirmation.
+- The transporter reports a vehicle problem.
+
+System Response:
+
+Flag the pickup for attention.
+
+The system should not automatically classify every overdue pickup as a confirmed failure. It should distinguish between an overdue record and a verified missed pickup.
+
+Stage 2: Assess the Situation
+
+User Goal:
+
+Understand the cause and urgency of the problem.
+
+User Actions:
+
+- Open the pickup.
+- Review the original commitment.
+- Inspect recent activity.
+- Record the reported exception.
+- Determine whether the shipment remains ready for collection.
+
+Potential Pain Points:
+
+- Conflicting information.
+- Unknown transporter availability.
+- Unclear responsibility.
+- Incomplete shipment details.
+
+Design Opportunities:
+
+- Display the original commitment and latest updates together.
+- Record the reported reason.
+- Make missing information visible.
+- Avoid forcing the operator through unnecessary screens.
+
+Stage 3: Initiate Recovery
+
+User Goal:
+
+Find a workable alternative.
+
+User Actions:
+
+- Start a recovery case.
+- Identify a potential alternative transporter.
+- Record contact attempts.
+- Record responses.
+- Confirm the alternative commitment.
+
+Potential Pain Points:
+
+- No alternative transporter is available.
+- Contact attempts receive no response.
+- Replacement costs are unclear.
+- The new pickup time is uncertain.
+
+Design Opportunities:
+
+- Keep recovery actions in one interface.
+- Record each alternative attempt.
+- Distinguish proposed alternatives from accepted commitments.
+- Allow the operator to record an unsuccessful recovery attempt.
+
+System Response:
+
+Set the recovery status to In Progress and preserve the original pickup history.
+
+Stage 4: Confirm the Outcome
+
+User Goal:
+
+Establish whether the shipment was successfully collected.
+
+User Actions:
+
+- Record the revised pickup commitment.
+- Monitor the alternative pickup.
+- Record the actual outcome.
+- Close the recovery case when appropriate.
+
+Potential Pain Points:
+
+- The alternative transporter also fails.
+- The revised time changes again.
+- The final outcome is not reported.
+
+Design Opportunities:
+
+- Keep unresolved cases visible.
+- Record successive attempts.
+- Distinguish successful recovery from a new commitment that has not yet been fulfilled.
+
+System Response:
+
+Update the pickup and recovery records with the final outcome.
+
+Journey Completion
+
+The journey is complete when the pickup has a documented outcome or is explicitly marked unresolved.
+
+A recovery case must not be treated as successful simply because an alternative transporter was contacted.
+
+3.2.3 Journey C: Review Pickup Performance
+
+Stage 1: Open Reports
+
+User Goal:
+
+Understand how reliably pickups are being completed.
+
+User Actions:
+
+- Open Reports.
+- Select a date range.
+- Review the summary metrics.
+
+Design Opportunities:
+
+- Use clear metric definitions.
+- Display the number of records included.
+- Separate operational performance from incomplete data.
+
+Stage 2: Investigate Exceptions
+
+User Goal:
+
+Understand why pickups are failing or being delayed.
+
+User Actions:
+
+- Review exception categories.
+- Compare transporter histories.
+- Inspect individual pickup records.
+
+Design Opportunities:
+
+- Link aggregate metrics to relevant pickup records.
+- Distinguish transporter-related issues from manufacturer-related issues.
+- Show the time period and sample size.
+
+Stage 3: Identify Improvements
+
+User Goal:
+
+Determine what should change operationally.
+
+Potential Actions:
+
+- Improve confirmation procedures.
+- Contact transporters earlier.
+- Identify recurring failure patterns.
+- Improve backup arrangements.
+- Adjust scheduling practices.
+
+Journey Completion
+
+The user should be able to identify operational patterns and make better-informed decisions.
+
+Dispatch should not imply that a transporter is unreliable or that performance has improved unless the underlying records support that conclusion.
+
+3.3 USER FLOWS
+
+3.3.1 Flow A: Create a Pickup
+
+Start
+
+→ Open Overview or Pickups
+
+→ Select Create Pickup
+
+→ Enter pickup details
+
+→ Validate required fields
+
+→ Assign transporter
+
+→ Review pickup information
+
+→ Save pickup
+
+→ System creates unique pickup reference
+
+→ Status becomes Awaiting Confirmation
+
+→ Pickup appears in the operational dashboard
+
+End
+
+Alternative Paths
+
+If required information is missing:
+
+→ Display field-level validation
+
+→ Preserve valid entered information
+
+→ Allow the operator to correct the record
+
+If the transporter is not available in the directory:
+
+→ Allow the operator to save the pickup without a confirmed transporter assignment, if the workflow permits
+
+→ Mark the record as requiring assignment
+
+→ Keep the pickup visible for follow-up
+
+If the save operation fails:
+
+→ Display an error
+
+→ Preserve entered information where possible
+
+→ Allow the operator to retry
+
+→ Avoid creating duplicate pickup records
+
+3.3.2 Flow B: Confirm a Pickup
+
+Start
+
+→ Open pickup record
+
+→ Review assigned transporter
+
+→ Initiate confirmation
+
+→ Record transporter response
+
+Decision: Did the transporter accept the commitment?
+
+If Yes:
+
+→ Record confirmation timestamp
+
+→ Record confirmed pickup time
+
+→ Set status to Confirmed
+
+→ Display confirmation in the pickup history
+
+If No:
+
+→ Record decline
+
+→ Keep the pickup unconfirmed
+
+→ Allow reassignment or another operational action
+
+If No Response:
+
+→ Keep the pickup Awaiting Confirmation
+
+→ Display the pending action
+
+→ Allow the operator to follow up or reassign the transporter
+
+End
+
+A transporter assignment must not automatically change the status to Confirmed.
+
+3.3.3 Flow C: Monitor an Upcoming Pickup
+
+Start
+
+→ Open Overview
+
+→ Review upcoming pickups
+
+→ Select pickup
+
+→ Inspect scheduled time and confirmation status
+
+Decision: Is the pickup confirmed?
+
+If No:
+
+→ Highlight the missing confirmation
+
+→ Allow the operator to contact or reassign the transporter
+
+If Yes:
+
+→ Continue monitoring
+
+Decision: Has a qualifying risk or exception been recorded?
+
+If No:
+
+→ Keep the pickup in the upcoming or confirmed state
+
+If Yes:
+
+→ Flag the pickup
+
+→ Display the relevant reason
+
+→ Allow the operator to assess the situation
+
+Decision: Has the scheduled pickup time passed without an outcome?
+
+If Yes:
+
+→ Flag the pickup as overdue
+
+→ Request an update or allow an exception to be recorded
+
+→ Do not automatically declare the pickup a confirmed failure
+
+End
+
+3.3.4 Flow D: Recover a Failed Pickup
+
+Start
+
+→ Open at-risk or overdue pickup
+
+→ Review commitment and activity history
+
+→ Record the exception
+
+→ Select Start Recovery
+
+→ Identify an alternative transporter
+
+→ Record contact attempt
+
+Decision: Is the alternative available?
+
+If No:
+
+→ Record the unsuccessful attempt
+
+→ Try another alternative if available
+
+→ If no alternative exists, retain the case as unresolved
+
+If Yes:
+
+→ Record the alternative commitment
+
+→ Set recovery status to In Progress
+
+→ Monitor the revised pickup
+
+Decision: Was the pickup completed?
+
+If Yes:
+
+→ Record the actual outcome
+
+→ Mark the pickup Completed, with recovery outcome recorded
+
+→ Close the recovery case
+
+If No:
+
+→ Record the new exception
+
+→ Continue recovery or mark unresolved
+
+End
+
+3.3.5 Flow E: Review Performance
+
+Start
+
+→ Open Reports
+
+→ Select date range
+
+→ Review pickup metrics
+
+→ Select metric or exception category
+
+→ Inspect relevant pickup records
+
+→ Review transporter history
+
+→ Identify recurring operational issues
+
+End
+
+If the selected period contains insufficient data:
+
+→ Display the available record count
+
+→ Explain that the metric may be inconclusive
+
+→ Avoid presenting the result as reliable evidence of improvement
+
+3.4 WIREFRAMES
+
+3.4.1 Screen Inventory
+
+The MVP requires the following primary screens:
+
+1. Login.
+2. Overview Dashboard.
+3. Pickup List.
+4. Create Pickup.
+5. Pickup Detail.
+6. Edit Pickup.
+7. Recovery Workspace.
+8. Transporter Directory.
+9. Transporter Detail.
+10. Reports.
+11. User and Organization Settings.
+
+Supporting interface states should be designed alongside these screens.
+
+3.4.2 Overview Dashboard
+
+Purpose
+
+Provide immediate operational visibility and highlight the most urgent work.
+
+Proposed Layout
+
+Top Navigation:
+
+- Dispatch logo.
+- Primary navigation.
+- User menu.
+
+Page Header:
+
+- Overview.
+- Current date or selected operating period.
+- Create Pickup button.
+
+Summary Cards:
+
+- Scheduled Today.
+- Awaiting Confirmation.
+- At Risk or Overdue.
+- Recovery in Progress.
+
+Priority Section:
+
+A prominent list of pickups requiring attention.
+
+Suggested columns:
+
+- Pickup Reference.
+- Pickup Location.
+- Scheduled Time.
+- Transporter.
+- Status.
+- Required Action.
+
+Upcoming Pickups:
+
+A secondary list of confirmed pickups scheduled soon.
+
+Recent Activity:
+
+A compact record of recent confirmations, exceptions, and completion events.
+
+Design Decision
+
+The priority list should appear before detailed analytics.
+
+The dashboard exists to help operators act, not merely observe statistics.
+
+3.4.3 Pickup List
+
+Purpose
+
+Allow operators to find, filter, and manage pickup records.
+
+Proposed Layout
+
+Page Header:
+
+- Pickups.
+- Create Pickup button.
+
+Filter Controls:
+
+- Date range.
+- Pickup status.
+- Transporter.
+- Location.
+- Exception status.
+
+Search:
+
+- Pickup reference.
+- Customer name.
+- Transporter name.
+
+Pickup Table:
+
+- Pickup Reference.
+- Customer.
+- Pickup Location.
+- Destination.
+- Scheduled Time.
+- Transporter.
+- Confirmation Status.
+- Current Status.
+- Actions.
+
+Interaction Rules
+
+- Filters should work together.
+- Active filters should be visible.
+- Clearing filters should restore the default list.
+- Selecting a row should open the pickup detail page.
+- Status labels should be readable without relying on color alone.
+- Pagination or incremental loading should be used when the record count requires it.
+
+3.4.4 Create Pickup Screen
+
+Purpose
+
+Allow an operator to create a complete and accurate pickup record with minimal effort.
+
+Proposed Layout
+
+Section 1: Shipment Information
+
+- Customer.
+- Shipment reference, if available.
+- Shipment description.
+
+Section 2: Pickup and Destination
+
+- Pickup address.
+- Destination address.
+- Scheduled date.
+- Scheduled time.
+- Shipment readiness notes.
+
+Section 3: Transporter Assignment
+
+- Select transporter.
+- View contact details.
+- Assignment notes.
+
+Section 4: Review
+
+- Summary of entered information.
+- Missing required fields.
+- Confirmation that the pickup has not yet been confirmed.
+
+Actions:
+
+- Save Pickup.
+- Cancel.
+
+Interaction Rules
+
+- Required fields must be clearly marked.
+- Errors should appear beside the relevant field.
+- Valid information should be preserved when validation fails.
+- Saving should create one pickup record.
+- A successful save should display the pickup reference and next available action.
+- The interface must not suggest that the transporter has confirmed the pickup.
+
+3.4.5 Pickup Detail Screen
+
+Purpose
+
+Provide a single source of truth for the pickup.
+
+Proposed Layout
+
+Header:
+
+- Pickup reference.
+- Current status.
+- Scheduled pickup time.
+- Primary available action.
+
+Section 1: Pickup Summary
+
+- Customer.
+- Pickup location.
+- Destination.
+- Shipment description.
+- Scheduled time.
+- Actual arrival or pickup time, where recorded.
+
+Section 2: Transporter
+
+- Transporter name.
+- Contact details.
+- Assignment status.
+- Confirmation status.
+- Confirmed commitment.
+
+Section 3: Operational Actions
+
+Depending on the current status:
+
+- Assign Transporter.
+- Record Confirmation.
+- Edit Pickup.
+- Record Delay.
+- Record Exception.
+- Start Recovery.
+- Mark Completed.
+- Record Cancellation.
+
+Section 4: Recovery
+
+Display this section when a recovery case exists.
+
+Include:
+
+- Original failure.
+- Alternative transporter attempts.
+- Responses.
+- Revised commitments.
+- Recovery outcome.
+
+Section 5: Activity Timeline
+
+Show the chronological history of important events.
+
+Interaction Rules
+
+- Available actions must depend on the current status and user permissions.
+- The original commitment should remain available after rescheduling.
+- Status changes must create traceable events.
+- Completed pickups should not silently revert to earlier states.
+- Corrections to historical records should be controlled and auditable.
+
+3.4.6 Recovery Workspace
+
+Purpose
+
+Help operators manage failed pickups without losing the context of the original commitment.
+
+Proposed Layout
+
+Header:
+
+- Pickup reference.
+- Original scheduled time.
+- Current recovery status.
+- Reason for recovery.
+
+Original Pickup:
+
+- Pickup and destination.
+- Original transporter.
+- Original commitment.
+- Recorded exception.
+
+Recovery Attempts:
+
+- Alternative transporter.
+- Contact timestamp.
+- Response.
+- Proposed pickup time.
+- Confirmed pickup time.
+- Attempt outcome.
+
+Primary Actions:
+
+- Add Recovery Attempt.
+- Record Response.
+- Confirm Alternative.
+- Record Successful Recovery.
+- Mark Unresolved.
+
+Interaction Rules
+
+- Each recovery attempt must be linked to the original pickup.
+- An unsuccessful attempt must remain in the history.
+- An alternative proposal must not be presented as a confirmed commitment.
+- The operator must be able to continue recovery after an unsuccessful attempt.
+- The case should not close automatically while its outcome remains unknown.
+
+3.4.7 Transporter Directory and Detail
+
+Directory Purpose
+
+Provide access to existing transporter records.
+
+Directory Fields:
+
+- Transporter Name.
+- Contact Person.
+- Phone Number.
+- Service Area.
+- Associated Pickup Count.
+- Recorded Exceptions.
+- Current Operational Notes.
+
+Detail Page
+
+Include:
+
+- Contact information.
+- Service area.
+- Pickup history.
+- Confirmation behavior.
+- Recorded delays.
+- Exception history.
+- Completed pickup statistics.
+
+Performance summaries must include the measurement period and sample size.
+
+The interface should avoid presenting small samples as definitive evidence of reliability.
+
+3.4.8 Reports Screen
+
+Purpose
+
+Provide basic evidence of pickup performance and operational trends.
+
+Proposed Layout
+
+Header:
+
+- Reports.
+- Date range selector.
+
+Summary Metrics:
+
+- Total Eligible Pickups.
+- On-Time Pickup Rate.
+- Missed Pickup Rate.
+- Recovery Rate.
+- Average Delay.
+
+Breakdowns:
+
+- Pickup outcomes.
+- Exception categories.
+- Transporter performance.
+- Recovery outcomes.
+
+Record-Level Details:
+
+A table of the underlying pickup records should be accessible where practical.
+
+Interaction Rules
+
+- Metric definitions should be available.
+- The measurement period must be visible.
+- Denominators and eligible record counts must be consistent.
+- Incomplete records must not silently count as successful outcomes.
+- Small sample sizes should be identified.
+- The interface must not imply causation from simple correlations.
+
+3.5 UI/UX DESIGN
+
+3.5.1 Product Experience Direction
+
+Dispatch should feel like a focused operational tool rather than a consumer delivery application.
+
+The design should emphasize:
+
+- Clarity.
+- Accountability.
+- Speed.
+- Consistency.
+- Operational visibility.
+- Trustworthy information.
+
+The interface should avoid excessive animations, decorative dashboards, unnecessary illustrations, and complicated navigation.
+
+3.5.2 Visual Hierarchy
+
+The visual hierarchy should follow this order:
+
+1. Urgent operational issues.
+2. Pickup status and scheduled time.
+3. Primary actions.
+4. Pickup and transporter details.
+5. Activity history.
+6. Supporting metrics.
+
+A pickup requiring immediate attention should be visually distinguishable from an ordinary confirmed pickup.
+
+The interface should communicate urgency through a combination of labels, positioning, icons, and accessible color use.
+
+3.5.3 Status Design
+
+Status labels must use consistent language across the dashboard, pickup list, detail page, and reports.
+
+Requested:
+
+The pickup request has been created.
+
+Awaiting Confirmation:
+
+A transporter has not yet explicitly confirmed the commitment.
+
+Confirmed:
+
+The transporter has accepted the recorded pickup commitment.
+
+At Risk:
+
+There is a recorded reason to believe the pickup may not proceed as planned.
+
+Recovery in Progress:
+
+An operator is coordinating an alternative or otherwise attempting to resolve a failure.
+
+Completed:
+
+The pickup has been recorded as completed.
+
+Delayed:
+
+The pickup has been delayed, but its final completion status may still need to be recorded.
+
+Cancelled:
+
+The pickup has been cancelled.
+
+Unresolved:
+
+The pickup outcome or recovery remains unresolved.
+
+The data model must distinguish current operational status from historical events and final outcomes. A completed pickup may have a recovery history without losing its final Completed status.
+
+3.5.4 Primary Actions
+
+Each screen should have one visually dominant primary action.
+
+Examples:
+
+- Overview: Create Pickup.
+- Pickup Detail: The most relevant next action for the current status.
+- Recovery Workspace: Add Recovery Attempt or Record Outcome.
+- Reports: Review Records or Export, if export is implemented.
+
+Secondary actions should be visually subordinate.
+
+Destructive actions should never be presented as the default primary action.
+
+3.5.5 Forms and Data Entry
+
+Forms should:
+
+- Group related information.
+- Use descriptive field labels.
+- Mark required fields.
+- Provide appropriate field-level validation.
+- Prevent invalid date and time combinations.
+- Preserve valid information when an error occurs.
+- Clearly explain why an action cannot proceed.
+- Avoid unnecessary mandatory fields.
+- Support efficient keyboard navigation.
+
+3.5.6 Feedback and Confirmation
+
+The system should provide clear feedback when an action succeeds or fails.
+
+Examples:
+
+Successful:
+
+Pickup created. Reference: DSP-000123.
+
+Pending:
+
+Pickup saved. Transporter confirmation is still pending.
+
+Error:
+
+Pickup could not be saved. Your entered information has been preserved where possible.
+
+Confirmation:
+
+Are you sure you want to cancel this pickup? The action will be recorded in the pickup history.
+
+These are example messages. Actual reference generation and supported operations will depend on implementation.
+
+3.5.7 Responsive Behavior
+
+Desktop should be the primary design target for the initial operational dashboard, subject to validation of the intended users' working environment.
+
+The interface should also accommodate narrower screens for operators who need to check a pickup or record an update away from their desks.
+
+Desktop:
+
+- Full navigation.
+- Multi-column layouts.
+- Detailed pickup tables.
+- Side-by-side information where helpful.
+
+Tablet:
+
+- Reduced column density.
+- Collapsible navigation.
+- Prioritized pickup details.
+
+Mobile:
+
+- Compact navigation.
+- Stacked information.
+- Prominent status and next action.
+- Simplified forms.
+- Easy access to contact information.
+- Avoidance of wide, difficult-to-use tables.
+
+Responsive design should preserve the critical workflow rather than simply shrink the desktop interface.
+
+3.5.8 Accessibility
+
+The interface should follow established accessibility practices.
+
+Requirements include:
+
+- Readable text sizes.
+- Sufficient text and interface contrast.
+- Keyboard-accessible navigation.
+- Visible focus indicators.
+- Meaningful labels for form controls.
+- Clear error descriptions.
+- Status indicators that do not depend on color alone.
+- Accessible names for interactive controls.
+- Appropriate support for screen readers.
+
+Accessibility should be addressed during design and implementation, not postponed until the product is complete.
+
+3.6 INTERACTIVE PROTOTYPE
+
+3.6.1 Prototype Objective
+
+Create a navigable prototype that demonstrates the complete pickup workflow before committing to full implementation.
+
+The prototype should help evaluate whether operators can understand the interface, locate critical information, and complete essential tasks without unnecessary confusion.
+
+It should represent realistic operational scenarios rather than only ideal paths.
+
+3.6.2 Required Prototype Screens
+
+1. Overview Dashboard.
+2. Pickup List.
+3. Create Pickup.
+4. Pickup Detail.
+5. Confirmation Workflow.
+6. Exception Recording.
+7. Recovery Workspace.
+8. Transporter Directory.
+9. Transporter Detail.
+10. Reports.
+
+Login and settings may be represented at a basic level if they are not central to the initial usability evaluation.
+
+3.6.3 Required Interactions
+
+The prototype must support the following demonstration:
+
+Scenario A: Create a Pickup
+
+- Open the dashboard.
+- Select Create Pickup.
+- Enter the required details.
+- Assign a transporter.
+- Save the pickup.
+- View the resulting pickup record.
+
+Scenario B: Confirm a Pickup
+
+- Open a pickup awaiting confirmation.
+- Record transporter acceptance.
+- View the updated status.
+- Inspect the confirmation event in the history.
+
+Scenario C: Handle a Failure
+
+- Open an at-risk or overdue pickup.
+- Record an exception.
+- Initiate recovery.
+- Record an alternative transporter attempt.
+- Confirm the alternative commitment.
+- Record the final outcome.
+
+Scenario D: Review Performance
+
+- Open Reports.
+- Select a date range.
+- Inspect performance metrics.
+- Open the underlying pickup records.
+
+3.6.4 Prototype States
+
+The prototype must include examples of:
+
+- Normal operation.
+- Awaiting confirmation.
+- At-risk pickup.
+- Overdue pickup.
+- Recovery in progress.
+- Successful recovery.
+- Unresolved recovery.
+- Form validation error.
+- Empty pickup list.
+- No search results.
+- Permission-restricted action.
+
+3.6.5 Usability Evaluation
+
+The prototype should be evaluated using task-based scenarios.
+
+Observe whether a representative user can:
+
+- Create a pickup without assistance.
+- Identify a pickup awaiting confirmation.
+- Determine which pickups require attention.
+- Record an exception.
+- Start and manage recovery.
+- Find the final pickup outcome.
+- Understand the reported performance metrics.
+
+Record:
+
+- Task completion.
+- Time required.
+- Errors.
+- Points of confusion.
+- Unnecessary actions.
+- Misunderstood status labels.
+- User feedback.
+
+Usability thresholds should be defined before formal testing. Any initial thresholds are provisional until tested with representative users.
+
+3.6.6 Prototype Completion Criteria
+
+The prototype is ready for implementation planning when:
+
+- All critical screens are represented.
+- The primary workflows are navigable.
+- Important alternative paths are covered.
+- Status changes are represented consistently.
+- Major usability problems have been identified.
+- Critical interactions have been reviewed.
+- The design is sufficiently detailed to guide development.
+
+A prototype is evidence of a proposed experience, not proof of operational or commercial success.
+
+3.7 DESIGN SYSTEM
+
+3.7.1 Design System Objective
+
+Establish a consistent set of interface rules and reusable components for the Dispatch MVP.
+
+The initial system should be lightweight. It should provide enough consistency to support development without creating unnecessary design overhead.
+
+3.7.2 Color System
+
+I recommend a neutral operational interface with a restrained semantic color palette.
+
+Primary Surface:
+
+White or near-white.
+
+Secondary Surface:
+
+Light neutral grey.
+
+Primary Text:
+
+Dark charcoal or near-black.
+
+Secondary Text:
+
+Medium neutral grey.
+
+Primary Action:
+
+A single consistent brand accent.
+
+Success:
+
+A clearly distinguishable success color.
+
+Warning:
+
+A clearly distinguishable warning color.
+
+Critical:
+
+A clearly distinguishable error or urgent-state color.
+
+Borders:
+
+Light neutral grey.
+
+Color values should be finalized during visual design and checked for sufficient contrast.
+
+Status colors must not be the only way to communicate meaning. Each status must also have a visible text label.
+
+3.7.3 Typography
+
+The typography system should prioritize readability and information density.
+
+Define:
+
+- Page title.
+- Section heading.
+- Card heading.
+- Body text.
+- Secondary text.
+- Form label.
+- Table text.
+- Status label.
+- Numeric metric.
+- Helper and error text.
+
+Use a consistent type scale and line-height system.
+
+Large metric typography should be reserved for genuinely important information rather than applied to every dashboard card.
+
+3.7.4 Spacing
+
+Use a consistent spacing scale based on a four-pixel base unit.
+
+Suggested tokens:
+
+- 4 px: Minimal spacing.
+- 8 px: Compact spacing.
+- 12 px: Small component spacing.
+- 16 px: Standard spacing.
+- 24 px: Section spacing.
+- 32 px: Large section spacing.
+- 48 px: Major layout spacing.
+
+These are initial design tokens and can be adjusted after the interface has been tested.
+
+3.7.5 Layout and Containers
+
+The interface should use consistent rules for:
+
+- Navigation width.
+- Main content width.
+- Page margins.
+- Card padding.
+- Table density.
+- Form width.
+- Modal dimensions.
+- Responsive breakpoints.
+
+Operational screens should use available horizontal space efficiently while maintaining readability.
+
+3.7.6 Reusable Components
+
+The initial component library should include:
+
+Navigation:
+
+- Primary navigation.
+- Breadcrumbs where necessary.
+- User menu.
+
+Actions:
+
+- Primary button.
+- Secondary button.
+- Tertiary button.
+- Destructive action.
+- Icon button.
+
+Data Display:
+
+- Summary card.
+- Data table.
+- Search field.
+- Filter control.
+- Date and time input.
+- Pagination, if required.
+
+Status:
+
+- Status badge.
+- Priority indicator.
+- Exception indicator.
+- Confirmation indicator.
+
+Forms:
+
+- Text field.
+- Select field.
+- Date picker.
+- Time picker.
+- Text area.
+- Validation message.
+- Form section.
+
+Feedback:
+
+- Success message.
+- Warning message.
+- Error message.
+- Confirmation dialog.
+- Loading indicator.
+- Empty state.
+
+Operational Components:
+
+- Pickup summary.
+- Transporter summary.
+- Activity timeline.
+- Recovery attempt record.
+- Performance metric.
+- Exception detail.
+
+3.7.7 Interaction Standards
+
+Components should have consistent behavior for:
+
+- Hover.
+- Focus.
+- Active state.
+- Disabled state.
+- Loading state.
+- Success feedback.
+- Validation errors.
+- Permission restrictions.
+
+Actions that initiate important state changes should provide clear feedback.
+
+Buttons should not remain active when the action is invalid or already being processed.
+
+Repeated submissions should not create duplicate records.
+
+3.7.8 Design System Completion Criteria
+
+The initial design system is ready when:
+
+- Core visual tokens are defined.
+- Typography is consistent.
+- Common components are specified.
+- Status indicators use consistent rules.
+- Interaction states are documented.
+- Responsive behavior is defined.
+- Accessibility considerations are incorporated.
+
+A larger formal design system can be introduced later if product complexity and team size justify it.
+
+3.8 PRODUCT STATES & EDGE CASES
+
+Dispatch operates in an environment where information can be delayed, incomplete, contradictory, or incorrect.
+
+The interface must handle these situations explicitly.
+
+3.8.1 Loading States
+
+Scenario:
+
+The system is retrieving pickup records or reports.
+
+Expected Behavior:
+
+- Display an appropriate loading indicator.
+- Preserve the page structure where possible.
+- Prevent duplicate submissions while a request is processing.
+- Provide a retry option when loading fails.
+- Avoid showing old data as current without indicating that it may be stale.
+
+3.8.2 Empty States
+
+Scenario:
+
+No pickups have been created.
+
+Expected Behavior:
+
+- Explain that no pickups are available.
+- Provide a Create Pickup action when the user has permission.
+- Avoid displaying misleading zero-performance metrics.
+
+Scenario:
+
+No pickups match the selected filters.
+
+Expected Behavior:
+
+- Explain that no matching records were found.
+- Allow the user to clear filters or change the search.
+- Preserve the user's ability to navigate elsewhere.
+
+Scenario:
+
+No recovery cases exist.
+
+Expected Behavior:
+
+- Explain that no active recovery cases are recorded.
+- Avoid suggesting that no pickup failures have ever occurred unless historical data supports that conclusion.
+
+3.8.3 Form Validation Errors
+
+Scenario:
+
+Required pickup information is missing.
+
+Expected Behavior:
+
+- Identify the missing fields.
+- Explain what is required.
+- Preserve valid entered information.
+- Prevent invalid submission.
+
+Scenario:
+
+The scheduled time is invalid.
+
+Expected Behavior:
+
+- Explain the problem.
+- Allow correction.
+- Validate the relationship between the scheduled time and relevant operational rules.
+
+Scenario:
+
+The pickup location or destination is incomplete.
+
+Expected Behavior:
+
+- Identify the affected field.
+- Request the missing information.
+- Avoid silently substituting an address.
+
+3.8.4 Transporter Does Not Respond
+
+Scenario:
+
+A transporter has been assigned but has not confirmed the pickup.
+
+Expected Behavior:
+
+- Keep the pickup in Awaiting Confirmation.
+- Display the pending confirmation.
+- Allow the operator to follow up or reassign the transporter.
+- Record the follow-up action where supported.
+
+The system must not assume that silence means acceptance.
+
+3.8.5 Transporter Cancels After Confirmation
+
+Scenario:
+
+A transporter withdraws from a previously confirmed pickup.
+
+Expected Behavior:
+
+- Record the cancellation event.
+- Preserve the original commitment.
+- Flag the pickup for attention.
+- Allow the operator to initiate recovery.
+- Record alternative transporter attempts.
+- Maintain the final outcome separately from the original commitment.
+
+The system must not erase the original confirmation when the commitment changes.
+
+3.8.6 Pickup Is Overdue but the Outcome Is Unknown
+
+Scenario:
+
+The scheduled pickup time has passed, but no arrival or completion information is available.
+
+Expected Behavior:
+
+- Mark the pickup as requiring attention.
+- Display the scheduled time.
+- Allow the operator to contact the transporter or record an exception.
+- Distinguish an overdue record from a verified missed pickup.
+
+An overdue pickup should not automatically be classified as a confirmed failure.
+
+3.8.7 Alternative Transporter Is Unavailable
+
+Scenario:
+
+The operator contacts an alternative transporter, but the transporter declines or cannot provide a vehicle.
+
+Expected Behavior:
+
+- Record the attempt.
+- Preserve the response.
+- Allow another recovery attempt.
+- Keep the case unresolved if no workable alternative is available.
+
+The system must not treat contacting an alternative transporter as successful recovery.
+
+3.8.8 Recovery Also Fails
+
+Scenario:
+
+An alternative transporter accepts the revised commitment but fails to complete the pickup.
+
+Expected Behavior:
+
+- Record the new failure.
+- Preserve the earlier recovery history.
+- Allow another recovery attempt.
+- Keep the final outcome accurate.
+- Prevent the original failure from disappearing from the record.
+
+3.8.9 Manufacturer Is Not Ready
+
+Scenario:
+
+The transporter arrives, but the shipment is not ready for collection.
+
+Expected Behavior:
+
+- Record the relevant exception.
+- Identify the reported cause.
+- Record the revised commitment where available.
+- Distinguish the manufacturer-related delay from a transporter-related failure.
+
+This distinction is essential for fair performance reporting.
+
+3.8.10 Pickup Details Change
+
+Scenario:
+
+The pickup time, destination, or shipment details change after confirmation.
+
+Expected Behavior:
+
+- Record the change.
+- Preserve the previous value in the history.
+- Update the current record.
+- Reconfirm the commitment when the change materially affects transporter acceptance.
+- Make the revised commitment visible.
+
+3.8.11 Duplicate Pickup Submission
+
+Scenario:
+
+An operator submits a form twice because the system responds slowly.
+
+Expected Behavior:
+
+- Prevent duplicate creation where possible.
+- Provide feedback while the request is processing.
+- Use appropriate server-side safeguards for duplicate submissions.
+- Display the existing pickup record if the system can reliably identify the repeated request.
+
+3.8.12 Network or Server Failure
+
+Scenario:
+
+The operator attempts to save a pickup or record a status change while the service is unavailable.
+
+Expected Behavior:
+
+- Display a clear error.
+- Avoid falsely confirming that the action succeeded.
+- Preserve entered information where possible.
+- Allow the operator to retry.
+- Ensure that retries do not create duplicate events or records.
+
+3.8.13 Conflicting Information
+
+Scenario:
+
+The manufacturer reports that the pickup did not happen, while the transporter reports that the vehicle arrived.
+
+Expected Behavior:
+
+- Preserve both reports and their sources.
+- Avoid silently selecting one account as definitive.
+- Allow the operator to investigate and record the resolution.
+- Distinguish reported information from verified outcomes.
+
+3.8.14 Permission Restrictions
+
+Scenario:
+
+A user attempts to perform an action they are not authorized to execute.
+
+Expected Behavior:
+
+- Prevent the unauthorized action.
+- Explain that the user lacks permission.
+- Avoid exposing restricted information.
+- Provide an appropriate route to an authorized operator when necessary.
+
+Permissions must be enforced by the backend, not only hidden in the interface.
+
+3.8.15 Cancellation and Completion Conflicts
+
+Scenario:
+
+A user attempts to cancel a pickup that has already been completed.
+
+Expected Behavior:
+
+- Prevent an invalid transition.
+- Explain the current status.
+- Provide a controlled correction process if the recorded outcome is wrong.
+- Preserve the audit history.
+
+3.8.16 Missing Historical Data
+
+Scenario:
+
+A pickup record does not contain enough information to calculate a performance metric.
+
+Expected Behavior:
+
+- Exclude the record from calculations where necessary.
+- Display the eligible record count.
+- Explain the limitation.
+- Avoid interpreting missing information as a successful pickup.
+
+3.8.17 Edge-Case Completion Criteria
+
+The design is complete when:
+
+- Critical operational states are documented.
+- Validation behavior is defined.
+- Failure recovery is represented.
+- Permissions are accounted for.
+- Important status transitions are controlled.
+- Historical records remain traceable.
+- Missing and conflicting information is handled explicitly.
+- The interface avoids presenting unverified information as fact.
+
+PHASE 3: FINAL DESIGN DECISIONS
+
+Decision 1: Build Around the Pickup Lifecycle
+
+The primary product experience will revolve around creating, confirming, monitoring, recovering, and reviewing pickups.
+
+Decision 2: Make Operational Exceptions the Priority
+
+The dashboard will prioritize pickups requiring action rather than emphasizing decorative analytics.
+
+Decision 3: Preserve the Difference Between Commitment and Outcome
+
+A confirmed pickup is not necessarily a completed pickup. An overdue pickup is not necessarily a verified failure. A recovery attempt is not necessarily a successful recovery.
+
+The data model and interface must preserve these distinctions.
+
+Decision 4: Keep Recovery Linked to the Original Pickup
+
+Recovery attempts must retain the original commitment and failure history. This will allow Dispatch to measure both the initial failure and the final outcome.
+
+Decision 5: Use a Lightweight Design System
+
+The first version will use a small set of reusable components and consistent visual rules. A more extensive design system can be introduced when justified.
+
+Decision 6: Validate the Experience Before Full Development
+
+The core workflows should be demonstrated through an interactive prototype and reviewed against realistic operational scenarios before full implementation.
+
+Decision 7: Treat Operational Evidence as a Product Requirement
+
+The design must support accurate status histories, exception records, confirmation timestamps, and final outcomes. These records will form the basis for evaluating whether Dispatch creates measurable value.
+
+PHASE 3: COMPLETION CRITERIA
+
+Phase 3 will be considered complete when the following deliverables are ready:
+
+1. Information architecture and navigation structure.
+2. User journey maps for the primary workflows.
+3. User flows covering normal and alternative paths.
+4. Wireframes for all critical MVP screens.
+5. UI/UX specifications, including responsive behavior and accessibility.
+6. Interactive prototype covering the primary workflows.
+7. Initial design system and reusable component specifications.
+8. Product states and edge-case documentation.
+9. Consistent status definitions and interaction rules.
+10. Design review identifying unresolved questions and implementation dependencies.
+
+These deliverables should provide a clear basis for technical architecture and development.
+
+NEXT PHASE
+
+Phase 4: Technical Architecture & System Design.
+
+The next phase will translate the approved experience into an implementable technical system, including:
+
+- Architecture and technology selection.
+- Frontend and backend structure.
+- Database schema.
+- Pickup and recovery data models.
+- Status transition rules.
+- Authentication and authorization.
+- API design.
+- Notification architecture.
+- Audit logging.
+- Error handling.
+- Testing strategy.
+- Deployment architecture.
+
+The objective will be to ensure that the technical system supports the product's operational requirements without introducing unnecessary complexity.
+
+Phase 3 outcome: A defined, testable product experience that specifies how users navigate Dispatch, manage pickups, respond to failures, and review outcomes.
